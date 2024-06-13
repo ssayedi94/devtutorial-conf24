@@ -93,3 +93,24 @@ jobs:
           name: appinspect-api-html-report
           path: AppInspect_response.html
 
+    test-v9:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      SPLUNK_VERSION: "9.0"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download package
+        uses: actions/download-artifact@v4
+        with:
+          name: my-package
+          path: app-dir/
+
+      - name: Instal packages
+        run: |
+          sudo apt update -qq
+          sudo apt-get install -y jq
+
+
